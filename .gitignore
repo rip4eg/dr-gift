@@ -1,2 +1,4 @@
-_check/
+﻿_check/
+upload-to-github/
+token.txt
 *.log
