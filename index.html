@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Сколько скинуться коллеге на ДР — калькулятор по вирусной формуле</title>
+<meta name="description" content="Онлайн-калькулятор подарка коллеге на день рождения по формуле (X/500 + Y/100) × K × N. Введи зарплату и сумму подарка, выбери коэффициенты — получи сумму.">
+<meta name="theme-color" content="#0a0a12">
+<meta property="og:title" content="Сколько скинуться коллеге на ДР?">
+<meta property="og:description" content="Та самая формула: (X/500 + Y/100) × K × N. Посчитай за 10 секунд.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%81%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+  <span class="grid"></span>
+</div>
+
+<main class="wrap">
+
+  <header class="hero">
+    <span class="badge"><i></i> вирусная формула</span>
+    <h1>Сколько скинуться<br>коллеге на <em>днюху</em>?</h1>
+    <p class="sub">Вводи зарплату и то, что дарили тебе. Жми кнопочки. Получай сумму. Никаких «ну рублей 500, наверное».</p>
+  </header>
+
+  <div class="layout">
+
+    <!-- ЛЕВАЯ КОЛОНКА: ВВОД -->
+    <section class="card inputs" aria-label="Данные для расчёта">
+
+      <div class="field">
+        <div class="field-head">
+          <label for="x">Твоя зарплата <b>X</b></label>
+          <span class="field-hint">в месяц, на руки</span>
+        </div>
+        <div class="money">
+          <input id="x" class="money-input" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" value="80 000" aria-describedby="x-help">
+          <span class="money-suffix">₽</span>
+        </div>
+        <p class="help" id="x-help">Если зарплата «серая» — не переживай, калькулятор никому не расскажет.</p>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <label for="y">Сколько дарили тебе <b>Y</b></label>
+          <span class="field-hint">общая сумма со всех</span>
+        </div>
+        <div class="money">
+          <input id="y" class="money-input" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" value="3 000">
+          <span class="money-suffix">₽</span>
+        </div>
+        <p class="help">Помнишь тот конверт на твоём ДР? Вот эта цифра. Если не дарили — поставь 0.</p>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <label>Коэффициент рабочей близости <b>K</b></label>
+        </div>
+        <div class="chips" id="chips-k" role="radiogroup" aria-label="Коэффициент рабочей близости"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <label>Коэффициент личной близости <b>N</b></label>
+        </div>
+        <div class="chips" id="chips-n" role="radiogroup" aria-label="Коэффициент личной близости"></div>
+      </div>
+
+      <details class="explain">
+        <summary>Откуда вообще эта формула?</summary>
+        <div class="explain-body">
+          <p>Мем из соцсетей, который на удивление неплохо работает на корпоративах:</p>
+          <p class="formula">(X / 500 + Y / 100) × K × N</p>
+          <ul>
+            <li><b>X</b> — твоя зарплата</li>
+            <li><b>Y</b> — общая сумма, которую дарили тебе коллеги на твой ДР</li>
+            <li><b>K</b> — рабочая близость: 0,5 / 1 / 1,5 / 2</li>
+            <li><b>N</b> — личная близость: 0,5 / 1 / 1,5 / 2</li>
+          </ul>
+          <p>Смысл простой: сумма растёт вместе с доходом, зависит от того, сколько дарили тебе, и от того, насколько вы вообще близки. Всё честно.</p>
+        </div>
+      </details>
+
+    </section>
+
+    <!-- ПРАВАЯ КОЛОНКА: РЕЗУЛЬТАТ -->
+    <section class="card result" aria-label="Результат расчёта" aria-live="polite">
+
+      <div class="result-top">
+        <span class="result-label">Скинуться</span>
+        <span class="result-emoji" aria-hidden="true">🎁</span>
+      </div>
+
+      <div class="amount" id="amount">—</div>
+      <div class="amount-note" id="amount-note"></div>
+
+      <div class="rounding">
+        <span class="rounding-label">Округление</span>
+        <div class="seg" id="rounding" role="radiogroup" aria-label="Округление">
+          <button class="seg-btn" role="radio" data-value="0" aria-checked="true">точно</button>
+          <button class="seg-btn" role="radio" data-value="100" aria-checked="false">до 100</button>
+          <button class="seg-btn" role="radio" data-value="500" aria-checked="false">до 500</button>
+        </div>
+      </div>
+
+      <div class="breakdown">
+        <span class="breakdown-label">Как посчиталось</span>
+        <span class="breakdown-value" id="breakdown">—</span>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="share">Поделиться расчётом</button>
+        <button class="btn btn-ghost" id="copy">Скопировать сумму</button>
+      </div>
+
+      <p class="toast" id="toast" role="status"></p>
+
+      <p class="disclaimer">Считает честно, но подарок — дело добровольное. Если сумма кажется дикой — выкрути коэффициенты, а не совесть.</p>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <span>Сделано по мему из ленты · формула не претендует на научность</span>
+  </footer>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
