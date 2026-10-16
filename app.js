@@ -62,13 +62,15 @@
     return input.value.replace(/\D/g, '').slice(0, 12);
   }
 
-  function readMoney(input) {
-    var d = digitsOf(input);
-    return d ? parseInt(d, 10) : 0;
+  // Показывает в поле введённые цифры. Пустая строка остаётся пустой,
+  // а "0" остаётся нулём — это разные вещи.
+  function formatField(input, digits) {
+    input.value = digits ? group(String(parseInt(digits, 10))) : '';
   }
 
+  // Первичная отрисовка из сохранённого состояния (там всегда число).
   function writeMoney(input, value) {
-    input.value = value > 0 ? group(String(value)) : '';
+    formatField(input, isFinite(value) ? String(value) : '');
   }
 
   function clampNumber(value, fallback) {
@@ -317,14 +319,15 @@
   [el.x, el.y].forEach(function (input, index) {
     input.addEventListener('input', function () {
       var key = index === 0 ? 'x' : 'y';
-      state[key] = readMoney(input);
-      writeMoney(input, state[key]);
+      var digits = digitsOf(input);
+      state[key] = digits ? parseInt(digits, 10) : 0;
+      formatField(input, digits);
       update({ animate: true });
       saveState();
     });
 
     input.addEventListener('blur', function () {
-      writeMoney(input, readMoney(input));
+      formatField(input, digitsOf(input));
     });
   });
 
